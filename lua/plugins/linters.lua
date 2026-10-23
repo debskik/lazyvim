@@ -54,7 +54,7 @@ return {
     },
   },
 
-  -- 4. Hook nvim-lint (Safely appending --no-parse)
+  -- 4. Hook nvim-lint (file-based npm-groovy-lint with --no-parse)
   {
     "mfussenegger/nvim-lint",
     opts = function(_, opts)
@@ -63,11 +63,15 @@ return {
       opts.linters_by_ft.bash = { "shellcheck" }
       opts.linters_by_ft.groovy = { "npm-groovy-lint" }
 
-      -- Inherit standard nvim-lint defaults and append --no-parse
+      -- Lint the file on disk instead of stdin: npm-groovy-lint reads the nvim-lint
+      -- stdin pipe non-blocking, crashes with EAGAIN (exit 2) and, as the exit code is
+      -- ignored, yields silently empty diagnostics. Args set (not appended) so a
+      -- re-run of this opts function can't duplicate --no-parse.
       local lint = require("lint")
       local npm_groovy_lint = lint.linters["npm-groovy-lint"]
       if npm_groovy_lint then
-        npm_groovy_lint.args = vim.list_extend({ "--no-parse" }, npm_groovy_lint.args or {})
+        npm_groovy_lint.stdin = false
+        npm_groovy_lint.args = { "--no-parse", "-o", "json" }
       end
     end,
   },
