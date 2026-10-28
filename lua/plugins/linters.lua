@@ -79,12 +79,29 @@ return {
   -- 5. Hook conform.nvim (Formatting)
   {
     "stevearc/conform.nvim",
-    opts = {
-      formatters_by_ft = {
-        sh = { "shfmt" },
-        bash = { "shfmt" },
-        groovy = { "npm-groovy-lint" },
-      },
-    },
+    opts = function(_, opts)
+      opts.formatters_by_ft = opts.formatters_by_ft or {}
+      opts.formatters_by_ft.sh = { "shfmt" }
+      opts.formatters_by_ft.bash = { "shfmt" }
+      opts.formatters_by_ft.groovy = { "npm-groovy-lint" }
+
+      -- The LazyVim sql extra forces `--dialect=ansi`, which overrides .sqlfluff and fails
+      -- (exit 1, parse error) on MySQL scripts. Let a project's .sqlfluff pick the dialect
+      -- and keep ansi only for projects without one.
+      opts.formatters = opts.formatters or {}
+      opts.formatters.sqlfluff = {
+        cwd = function(_, ctx)
+          local found =
+            vim.fs.find(".sqlfluff", { upward = true, path = ctx.dirname, limit = 1 })[1]
+          return found and vim.fs.dirname(found) or ctx.dirname
+        end,
+        args = function(_, ctx)
+          if vim.fs.find(".sqlfluff", { upward = true, path = ctx.dirname, limit = 1 })[1] then
+            return { "format", "-" }
+          end
+          return { "format", "--dialect=ansi", "-" }
+        end,
+      }
+    end,
   },
 }
