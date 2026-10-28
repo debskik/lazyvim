@@ -1,0 +1,14 @@
+# Jars for the groovy-language-server classpath (AEM 6.5 Groovy scripts), one per line:
+#   file name <TAB> download URL <TAB> SHA-256
+# Used by scripts/install-libs.sh (download + verify) and lua/config/groovy_libs.lua (classpath).
+# The AEM uber jar is saved under a descriptive name; the file is uber-jar-6.5.22.jar on Maven Central.
+adobe-aem-uber-jar-6.5.22.jar	https://repo1.maven.org/maven2/com/adobe/aem/uber-jar/6.5.22/uber-jar-6.5.22.jar	acda49a8f8639b6adb028b10270dde917aa4806a8310b6071b630c487a897cc5
+groovy-4.0.22.jar	https://repo1.maven.org/maven2/org/apache/groovy/groovy/4.0.22/groovy-4.0.22.jar	f9d8bd4d65852c18194e353c77f3d2c23e0013856951c5430ba56972d2f67a1e
+groovy-dateutil-4.0.22.jar	https://repo1.maven.org/maven2/org/apache/groovy/groovy-dateutil/4.0.22/groovy-dateutil-4.0.22.jar	a791c3b7c80e7544e35a11c0265ca3f72f0f680ab2b2e1546b6c5e3fe6a17b18
+groovy-json-4.0.22.jar	https://repo1.maven.org/maven2/org/apache/groovy/groovy-json/4.0.22/groovy-json-4.0.22.jar	aba93254d9293881282bd639b7b3db8bdcb5bf6cca4cac0df7a0bd193743f652
+groovy-nio-4.0.22.jar	https://repo1.maven.org/maven2/org/apache/groovy/groovy-nio/4.0.22/groovy-nio-4.0.22.jar	c06bcb12bcba82d33d6c49763210c69eb8e15b2b23af8f2c79a2dc90b7bf4d25
+groovy-templates-4.0.22.jar	https://repo1.maven.org/maven2/org/apache/groovy/groovy-templates/4.0.22/groovy-templates-4.0.22.jar	740e2b518b1500956e87a8b1fd326e0b2c21adc677aa3fec5565d017b690cd35
+groovy-xml-4.0.22.jar	https://repo1.maven.org/maven2/org/apache/groovy/groovy-xml/4.0.22/groovy-xml-4.0.22.jar	a8c6c845ed22feaaed8f0fd79798b8abea3e090afd5a9adaab96dbda152169cb
+groovy-yaml-4.0.22.jar	https://repo1.maven.org/maven2/org/apache/groovy/groovy-yaml/4.0.22/groovy-yaml-4.0.22.jar	cbf635084708610c42970f1a03540ced09b6387fac7509f6a716fe3bcd469b35
+aem-groovy-console-api-19.0.8.jar	https://repo1.maven.org/maven2/be/orbinson/aem/aem-groovy-console-api/19.0.8/aem-groovy-console-api-19.0.8.jar	f815cb8c061924d946573542f20eead6ed40bade537d5b5115b2e66254a19548
+aem-groovy-console-bundle-19.0.8.jar	https://repo1.maven.org/maven2/be/orbinson/aem/aem-groovy-console-bundle/19.0.8/aem-groovy-console-bundle-19.0.8.jar	4feb2f8dc38f3c41cc0ae8affc4daddde067e7e9b9cf41df11ff56cff5be5b13

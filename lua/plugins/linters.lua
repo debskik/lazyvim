@@ -1,19 +1,6 @@
+-- Mason packages are listed in plugins/mason.lua.
 return {
-  -- 1. Ensure Mason installs binaries
-  {
-    "mason-org/mason.nvim",
-    opts = function(_, opts)
-      opts.ensure_installed = opts.ensure_installed or {}
-      vim.list_extend(opts.ensure_installed, {
-        "shellcheck",
-        "shfmt",
-        "npm-groovy-lint",
-        "groovy-language-server",
-      })
-    end,
-  },
-
-  -- 2. Configure Mason-LSPconfig
+  -- 1. Configure Mason-LSPconfig
   {
     "mason-org/mason-lspconfig.nvim",
     opts = {
@@ -21,7 +8,8 @@ return {
     },
   },
 
-  -- 3. Configure nvim-lspconfig (with vim.fn.expand for the JARs)
+  -- 2. Configure nvim-lspconfig: Groovy classpath = the jars of scripts/groovy-libs.tsv in
+  --    $GROOVY_LIBS_DIR (default ~/libs); scripts/install-libs.sh downloads them.
   {
     "neovim/nvim-lspconfig",
     opts = {
@@ -30,23 +18,7 @@ return {
           filetypes = { "groovy" },
           settings = {
             groovy = {
-              classpath = {
-                -- AEM 6.5 Primary API
-                vim.fn.expand("~/libs/adobe-aem-uber-jar-6.5.22.jar"),
-
-                -- Groovy 4.0.22 Modules
-                vim.fn.expand("~/libs/groovy-4.0.22.jar"),
-                vim.fn.expand("~/libs/groovy-dateutil-4.0.22.jar"),
-                vim.fn.expand("~/libs/groovy-json-4.0.22.jar"),
-                vim.fn.expand("~/libs/groovy-nio-4.0.22.jar"),
-                vim.fn.expand("~/libs/groovy-templates-4.0.22.jar"),
-                vim.fn.expand("~/libs/groovy-xml-4.0.22.jar"),
-                vim.fn.expand("~/libs/groovy-yaml-4.0.22.jar"),
-
-                -- AEM Groovy Console API & Bundle
-                vim.fn.expand("~/libs/aem-groovy-console-api-19.0.8.jar"),
-                vim.fn.expand("~/libs/aem-groovy-console-bundle-19.0.8.jar"),
-              },
+              classpath = require("config.groovy_libs").classpath(),
             },
           },
         },
@@ -54,7 +26,7 @@ return {
     },
   },
 
-  -- 4. Hook nvim-lint (file-based npm-groovy-lint with --no-parse)
+  -- 3. Hook nvim-lint (file-based npm-groovy-lint with --no-parse)
   {
     "mfussenegger/nvim-lint",
     opts = function(_, opts)
@@ -76,7 +48,7 @@ return {
     end,
   },
 
-  -- 5. Hook conform.nvim (Formatting)
+  -- 4. Hook conform.nvim (Formatting)
   {
     "stevearc/conform.nvim",
     opts = function(_, opts)
